@@ -9,9 +9,7 @@ from chat.models import VectorDocument
 
 # qs = Chat.objects.filter()
 
-llm = OpenAILLM(
-    initial_messages=[],
-)
+llm = OpenAILLM()  # OPENAI_API_KEY
 
 while True:
     humun_message = input("[Human] ").strip()
@@ -23,7 +21,6 @@ while True:
     if is_rag:
         docs = VectorDocument.objects.similarity_search(humun_message)
         humun_message = f"<context>{str(docs)}</context>\n\nHuman: {humun_message}"
-        print(humun_message)
 
     # ai_message = llm.ask(humun_message)
     # print("[AI]", ai_message)
@@ -32,7 +29,7 @@ while True:
     ai_message = ''
     for chunk in llm.ask(humun_message, stream=True):
         print(chunk, end="", flush=True)
-        ai_message += chunk
+        ai_message += chunk.text  # Reply 타입
     print()
 
     # Chat.objects.bulk_create([
