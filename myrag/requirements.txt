@@ -1,0 +1,8 @@
+markitdown[all]
+requests
+
+django
+pgvector
+psycopg2-binary
+
+django-environ
