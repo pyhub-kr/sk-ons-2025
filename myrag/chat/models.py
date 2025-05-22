@@ -1,6 +1,25 @@
+from uuid import uuid4
+
+from django.conf import settings
 from django.db import models
 from pgvector.django import VectorField
 from pyhub.rag.models.postgres import PGVectorDocument
+
+
+# class Room(models.Model):
+#     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     uuid = models.UUIDField(default=uuid4)
+#
+#
+# class Chat(models.Model):
+#     class Roles(models.TextChoices):
+#         user = "user"
+#         assistant = "assistant"
+#
+#     # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     # room = models.ForeignKey(Room, on_delete=models.CASCADE)
+#     role = models.CharField(max_length=20, choices=Roles.choices)
+#     content = models.TextField()
 
 
 class Document(models.Model):
