@@ -1,6 +1,8 @@
 from environ import Env
 from pathlib import Path
 
+from pyhub.init import make_filecache_setting
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -121,3 +123,21 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CACHES = {
+    "default": make_filecache_setting(
+        "skons_default",
+        max_entries=5000,
+        # 최대치에 도달했을 때 삭제하는 비율: 1/5 삭제 (0이면 모두 삭제)
+        cull_frequency=5,
+        timeout=86400 * 30,
+    ),
+    "openai": make_filecache_setting(
+        "skons_openai",
+        max_entries=5000,
+        # 최대치에 도달했을 때 삭제하는 비율: 1/5 삭제 (0이면 모두 삭제)
+        cull_frequency=5,
+        timeout=86400 * 30,
+    ),
+}
