@@ -1,0 +1,7 @@
+# requirements.txt
+pywin32; sys_platform == "win32"
+html2text
+click
+mcp[cli]
+typer
+rich
