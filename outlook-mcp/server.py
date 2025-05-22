@@ -1,7 +1,12 @@
-# outlook_mcp.py
+import os
+import django
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE",
+    "mysite.settings",
+)
+django.setup()
 
 from mcp.server.fastmcp import FastMCP
-
 from outlook.types import Email
 from outlook.win import get_emails
 
