@@ -1,15 +1,26 @@
 import os
+
+from pyhub.llm.types import Message
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
 
 import django
 django.setup()
 
-from pyhub.llm import OpenAILLM
+from pyhub.llm import OpenAILLM, UpstageLLM, GoogleLLM, AnthropicLLM
 from chat.models import VectorDocument
 
-# qs = Chat.objects.filter()
-
-llm = OpenAILLM()  # OPENAI_API_KEY
+# def received_chat_message(request):
+llm = OpenAILLM(
+    model="gpt-4o",
+    initial_messages=[
+        Message(role="user", content="My name is chinseok."),
+        # Message(role="", content=""),
+    ],
+)
+# llm = UpstageLLM(model="solar-pro2-preview")  # UPSTAGE_API_KEY
+# llm = GoogleLLM()
+# llm = AnthropicLLM()
 
 while True:
     humun_message = input("[Human] ").strip()
@@ -29,7 +40,7 @@ while True:
     ai_message = ''
     for chunk in llm.ask(humun_message, stream=True):
         print(chunk, end="", flush=True)
-        ai_message += chunk.text  # Reply 타입
+        ai_message += chunk.text  # Reply 타입 (.text, .usage)
     print()
 
     # Chat.objects.bulk_create([
